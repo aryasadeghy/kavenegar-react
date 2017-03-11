@@ -30,5 +30,10 @@
     "css-loader": "^0.26.2",
     "style-loader": "^0.13.2",
     "webpack": "^1.12.13"
-  }
+  },
+   "engines":{
+	 "node": "7.5.0"
+
+	}
+
 }
