@@ -1,12 +1,12 @@
 {
-  "name": "boilerplate",
+  "name": "kavenegar-react-app",
   "version": "1.0.0",
-  "description": "Simple react app",
-  "main": "index.js",
+  "description": "Simple react app with kavenegar APi",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Andrew Mead",
+  "author": "aryasdaeghy",
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.4",
