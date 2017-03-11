@@ -93,7 +93,7 @@ render : function(){
                                 ref = "key"
                                 className="form-control input-lg"
                                   placeholder="Your KEY"
-                                  defaultValue="6F646F316835782F7A4F4C44593768673342656177673D3D"/>
+                                  />
                               </div>
                               <div className="form-group">
                                 <input
@@ -101,7 +101,7 @@ render : function(){
                                   ref = "sender"
                                   className="form-control input-lg"
                                   placeholder="Your Sender Number"
-                                  defaultValue="10006660666060"/>
+                                  />
                               </div>
                               <div className="form-group">
                                 <input
@@ -109,7 +109,7 @@ render : function(){
                                   ref = "receptor"
                                   className="form-control input-lg"
                                   placeholder="PhoneNumber"
-                                  defaultValue="10006660666060" />
+                                   />
                               </div>
                                 <div className="form-group">
                                   <textarea

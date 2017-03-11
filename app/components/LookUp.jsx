@@ -96,7 +96,7 @@ render : function(){
                                   ref = "key"
                                   className="form-control input-lg"
                                   placeholder="Your KEY"
-                                  defaultValue="6F646F316835782F7A4F4C44593768673342656177673D3D"/>
+                                />
                           </div>
                           <div className="form-group">
                             <input
@@ -104,7 +104,7 @@ render : function(){
                               ref = "template"
                               className="form-control input-lg"
                               placeholder="Your Template"
-                              defaultValue="coderland" />
+                               />
                           </div>
                           <div className="form-group">
                             <input
@@ -120,16 +120,7 @@ render : function(){
                               className="form-control input-lg"
                               placeholder="Your PhoneNumber" />
                           </div>
-                          <span className="button-checkbox">
-
-                            <input
-                              type="checkbox"
-                                name="remember_me"
-                                id="remember_me"
-                                defaultChecked="checked"
-                                className="hidden" />
-
-                          </span>
+                
                           <hr className="colorgraph" />
                           <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">

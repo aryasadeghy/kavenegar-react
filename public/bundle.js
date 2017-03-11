@@ -19960,8 +19960,8 @@
 	                  type: 'text',
 	                  ref: 'key',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your KEY',
-	                  defaultValue: '6F646F316835782F7A4F4C44593768673342656177673D3D' })
+	                  placeholder: 'Your KEY'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -19970,8 +19970,8 @@
 	                  type: 'text',
 	                  ref: 'sender',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your Sender Number',
-	                  defaultValue: '10006660666060' })
+	                  placeholder: 'Your Sender Number'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -19980,8 +19980,8 @@
 	                  type: 'text',
 	                  ref: 'receptor',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'PhoneNumber',
-	                  defaultValue: '10006660666060' })
+	                  placeholder: 'PhoneNumber'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -44931,8 +44931,8 @@
 	                  type: 'text',
 	                  ref: 'key',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your KEY',
-	                  defaultValue: '6F646F316835782F7A4F4C44593768673342656177673D3D' })
+	                  placeholder: 'Your KEY'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -44941,8 +44941,8 @@
 	                  type: 'text',
 	                  ref: 'template',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your Template',
-	                  defaultValue: 'coderland' })
+	                  placeholder: 'Your Template'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -44961,16 +44961,6 @@
 	                  ref: 'receptor',
 	                  className: 'form-control input-lg',
 	                  placeholder: 'Your PhoneNumber' })
-	              ),
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'button-checkbox' },
-	                _react2.default.createElement('input', {
-	                  type: 'checkbox',
-	                  name: 'remember_me',
-	                  id: 'remember_me',
-	                  defaultChecked: 'checked',
-	                  className: 'hidden' })
 	              ),
 	              _react2.default.createElement('hr', { className: 'colorgraph' }),
 	              _react2.default.createElement(
@@ -45124,8 +45114,8 @@
 	                  type: 'text',
 	                  ref: 'key',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your KEY',
-	                  defaultValue: '6F646F316835782F7A4F4C44593768673342656177673D3D' })
+	                  placeholder: 'Your KEY'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
@@ -45134,8 +45124,8 @@
 	                  type: 'text',
 	                  ref: 'linenumber',
 	                  className: 'form-control input-lg',
-	                  placeholder: 'Your linenumber',
-	                  defaultValue: '10006660666060' })
+	                  placeholder: 'Your linenumber'
+	                })
 	              ),
 	              _react2.default.createElement(
 	                'div',
