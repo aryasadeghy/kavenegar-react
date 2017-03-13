@@ -16,7 +16,8 @@ var Simple = React.createClass({
         return : {},
         entries : {},
         showComponent:false,
-        kavenegarPhoto:true
+        kavenegarPhoto:true,
+        isloading: false
       }
     },
 
@@ -26,16 +27,14 @@ var Simple = React.createClass({
    var message = this.refs.message.value;
    var sender = this.refs.sender.value;
    var key = this.refs.key.value
-
-
    var url = `https://api.kavenegar.com/v1/${key}/sms/send.json?receptor=${receptor}&sender=${sender}&message=${message}`
    var self = this;
-      self.refs.receptor.value = '';
-      self.refs.message.value = '';
-      self.refs.sender.value =''
-      self.refs.key.value = '';
-     fetch(url).then(function (response){
-
+   self.refs.receptor.value = '';
+   self.refs.message.value = '';
+   self.refs.sender.value =''
+   self.refs.key.value = '';
+   this.setState({isloading:true, kavenegarPhoto:false})
+fetch(url).then(function (response){
           var status = self.state.status
       //  Alert.info(JSON.stringify(self.state), {
       //   position: 'top-left',
@@ -46,7 +45,6 @@ var Simple = React.createClass({
      response.json().then(function(json) {
  if(json.entries != null){
    self.setState({
-
      entries :{
        messageid: json.entries[0].messageid,
        message:json.entries[0].message,
@@ -61,7 +59,10 @@ var Simple = React.createClass({
      message: json.return.message
    }
  })
-
+ self.setState({
+   showComponent : true,
+   isloading: false
+ })
 
 });
 
@@ -69,14 +70,27 @@ var Simple = React.createClass({
           self.setState({Message:error})
           console.log(error)
           })
-          this.setState({
-            showComponent : true,
-            kavenegarPhoto: false
-          })
+
 
 
  },
 render : function(){
+  var {isloading, showComponent} = this.state;
+  var that = this;
+  function fetchingData(){
+    if(isloading){
+      return <img  className="isloading"src="http://loading.io/assets/img/hourglass.svg"></img>
+
+    }else if (showComponent) {
+      return (
+        <div>
+            <JSONPretty id="json-pretty" json={that.state.return}></JSONPretty>
+            <JSONPretty id="json-pretty" json={that.state.entries}></JSONPretty>
+       </div>
+      )
+
+    }
+  }
         return(
           <div className="container">
                   <div className="row" style={{marginTop: 60}}>
@@ -143,13 +157,7 @@ render : function(){
                                 </form>
                                 </div>
                                 <div  className="col-md-6 col-sm-6 col-xs-6 pull-left json-part ">
-
-                                      {this.state.showComponent ?
-                                        <div>
-                                            <JSONPretty id="json-pretty" json={this.state.return}></JSONPretty>
-                                            <JSONPretty id="json-pretty" json={this.state.entries}></JSONPretty>
-                                        </div>
-                                     : null}
+                                  {fetchingData()}
                                      {this.state.kavenegarPhoto ? <img src='http://panel.kavenegar.com/public/images/Kavenegar-Newface.png'></img> : null}
                                 </div>
                       </div>

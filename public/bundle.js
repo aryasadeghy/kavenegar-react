@@ -19877,7 +19877,8 @@
 	      return: {},
 	      entries: {},
 	      showComponent: false,
-	      kavenegarPhoto: true
+	      kavenegarPhoto: true,
+	      isloading: false
 	    };
 	  },
 
@@ -19887,15 +19888,14 @@
 	    var message = this.refs.message.value;
 	    var sender = this.refs.sender.value;
 	    var key = this.refs.key.value;
-
 	    var url = 'https://api.kavenegar.com/v1/' + key + '/sms/send.json?receptor=' + receptor + '&sender=' + sender + '&message=' + message;
 	    var self = this;
 	    self.refs.receptor.value = '';
 	    self.refs.message.value = '';
 	    self.refs.sender.value = '';
 	    self.refs.key.value = '';
+	    this.setState({ isloading: true, kavenegarPhoto: false });
 	    fetch(url).then(function (response) {
-
 	      var status = self.state.status;
 	      //  Alert.info(JSON.stringify(self.state), {
 	      //   position: 'top-left',
@@ -19906,7 +19906,6 @@
 	      response.json().then(function (json) {
 	        if (json.entries != null) {
 	          self.setState({
-
 	            entries: {
 	              messageid: json.entries[0].messageid,
 	              message: json.entries[0].message,
@@ -19921,17 +19920,34 @@
 	            message: json.return.message
 	          }
 	        });
+	        self.setState({
+	          showComponent: true,
+	          isloading: false
+	        });
 	      });
 	    }).catch(function (error) {
 	      self.setState({ Message: error });
 	      console.log(error);
 	    });
-	    this.setState({
-	      showComponent: true,
-	      kavenegarPhoto: false
-	    });
 	  },
 	  render: function render() {
+	    var _state = this.state,
+	        isloading = _state.isloading,
+	        showComponent = _state.showComponent;
+
+	    var that = this;
+	    function fetchingData() {
+	      if (isloading) {
+	        return _react2.default.createElement('img', { className: 'isloading', src: 'http://loading.io/assets/img/hourglass.svg' });
+	      } else if (showComponent) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.return }),
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.entries })
+	        );
+	      }
+	    }
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container' },
@@ -20022,12 +20038,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-md-6 col-sm-6 col-xs-6 pull-left json-part ' },
-	          this.state.showComponent ? _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.return }),
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.entries })
-	          ) : null,
+	          fetchingData(),
 	          this.state.kavenegarPhoto ? _react2.default.createElement('img', { src: 'http://panel.kavenegar.com/public/images/Kavenegar-Newface.png' }) : null
 	        )
 	      ),
@@ -44803,7 +44814,7 @@
 
 
 	// module
-	exports.push([module.id, ".colorgraph {\n    height: 5px;\n    border-top: 0;\n    background: #c4e17f;\n    border-radius: 5px;\n    background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n}\n.footer-basic-centered{\n\tbackground-color: #292c2f;\n\tbox-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\ttext-align: center;\n\tfont: normal 18px sans-serif;\n\n\tpadding: 45px;\n\tmargin-top: 80px;\n}\n\n.footer-basic-centered .footer-company-motto{\n\tcolor:  #8d9093;\n\tfont-size: 24px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-company-name{\n\tcolor:  #8f9296;\n\tfont-size: 14px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-links{\n\tlist-style: none;\n\tfont-weight: bold;\n\tcolor:  #ffffff;\n\tpadding: 35px 0 23px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-links a{\n\tdisplay:inline-block;\n\ttext-decoration: none;\n\tcolor: inherit;\n}\n.fixedfooter {\n  min-height: 101px\n}\npre {\n\n\n    background-color: #444444!important;\n    border: 1px solid #444!important;\n    padding-top: 20px;\n    padding-bottom: 20px;\n\n}\n.json-part {\n  padding-top: 127px;\npadding-right: 0px;\nmargin-left: -133px;\n}\n.json-part-2 {\n  padding-top: 69px;\npadding-right: 0px;\nmargin-left: -133px;\n}\n", ""]);
+	exports.push([module.id, ".colorgraph {\n    height: 5px;\n    border-top: 0;\n    background: #c4e17f;\n    border-radius: 5px;\n    background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n}\n.footer-basic-centered{\n\tbackground-color: #292c2f;\n\tbox-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\ttext-align: center;\n\tfont: normal 18px sans-serif;\n\n\tpadding: 45px;\n\tmargin-top: 80px;\n}\n\n.footer-basic-centered .footer-company-motto{\n\tcolor:  #8d9093;\n\tfont-size: 24px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-company-name{\n\tcolor:  #8f9296;\n\tfont-size: 14px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-links{\n\tlist-style: none;\n\tfont-weight: bold;\n\tcolor:  #ffffff;\n\tpadding: 35px 0 23px;\n\tmargin: 0;\n}\n\n.footer-basic-centered .footer-links a{\n\tdisplay:inline-block;\n\ttext-decoration: none;\n\tcolor: inherit;\n}\n.fixedfooter {\n  min-height: 101px\n}\npre {\n\n\n    background-color: #444444!important;\n    border: 1px solid #444!important;\n    padding-top: 20px;\n    padding-bottom: 20px;\n\n}\n.json-part {\n  padding-top: 127px;\n\n}\n.json-part-2 {\n  padding-top: 69px;\n\n}\n.isloading{\n  padding-left: 210px;\n padding-top: 51px;\n}\n", ""]);
 
 	// exports
 
@@ -44840,7 +44851,9 @@
 	      return: {},
 	      entries: {},
 	      showComponent: false,
-	      kavenegarPhoto: true
+	      kavenegarPhoto: true,
+	      isloading: false
+
 	    };
 	  },
 	  handleSubmit: function handleSubmit(e) {
@@ -44851,6 +44864,8 @@
 	    var template = this.refs.template.value;
 	    var key = this.refs.key.value;
 
+	    this.setState({ isloading: true, kavenegarPhoto: false
+	    });
 	    var url = 'https://api.kavenegar.com/v1/' + key + '/verify/lookup.json?receptor=' + phone + '&token=' + token + '&template=' + template;
 	    var self = this;
 	    self.refs.receptor.value = '';
@@ -44859,14 +44874,7 @@
 	    self.refs.key.value = '';
 	    fetch(url).then(function (response) {
 	      self.setState({});
-	      //
-	      //       Alert.info(JSON.stringify(self.state.return), {
-	      //        position: 'top-left',
-	      //        effect: 'jelly',
-	      //        timeout: 3000,
-	      //        offset: 100
-	      //    }
-	      //  );
+
 	      response.json().then(function (json) {
 	        if (json.entries != null) {
 	          self.setState({
@@ -44884,6 +44892,10 @@
 	            message: json.return.message
 	          }
 	        });
+	        self.setState({
+	          showComponent: true,
+	          isloading: false
+	        });
 	      });
 	    }).catch(function (error) {
 	      con;
@@ -44895,14 +44907,29 @@
 	      });
 	      console.log('request failed', error);
 	    });
-
-	    this.setState({
-	      showComponent: true,
-	      kavenegarPhoto: false
-	    });
 	  },
 
 	  render: function render() {
+	    var _state = this.state,
+	        isloading = _state.isloading,
+	        showComponent = _state.showComponent;
+
+	    var that = this;
+	    //this function addding loading content before the json showup
+	    function fetchingData() {
+	      if (isloading) {
+	        //if  isloading state is true tihs render
+	        return _react2.default.createElement('img', { className: 'isloading', src: 'http://loading.io/assets/img/hourglass.svg' });
+	      } else if (showComponent) {
+	        //id isloading state is false this render
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.return }),
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.entries })
+	        );
+	      }
+	    }
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container' },
@@ -44981,19 +45008,13 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-xs-6 col-sm-6 col-md-6 pull-left json-part' },
-	          this.state.showComponent ? _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.return }),
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.entries })
-	          ) : null,
+	          fetchingData(),
 	          this.state.kavenegarPhoto ? _react2.default.createElement('img', { src: 'http://panel.kavenegar.com/public/images/Kavenegar-Newface.png' }) : null
 	        )
 	      ),
 	      _react2.default.createElement(_reactSAlert2.default, { stack: { limit: 1 }, html: true })
 	    );
 	  }
-
 	});
 	module.exports = LookUp;
 
@@ -45031,7 +45052,8 @@
 	      return: {},
 	      entries: [],
 	      showComponent: false,
-	      kavenegarPhoto: true
+	      kavenegarPhoto: true,
+	      isloading: false
 	    };
 	  },
 
@@ -45045,6 +45067,7 @@
 	    var self = this;
 	    self.refs.linenumber.value = '';
 	    self.refs.key.value = '';
+	    this.setState({ isloading: true, kavenegarPhoto: false });
 	    fetch(url).then(function (response) {
 	      self.setState({
 	        return: {
@@ -45075,17 +45098,34 @@
 	            message: json.return.message
 	          }
 	        });
+	        self.setState({
+	          isloading: false,
+	          showComponent: true
+	        });
 	      });
 	    }).catch(function (error) {
 	      self.setState({ Message: error });
 	      console.log(error);
 	    });
-	    this.setState({
-	      showComponent: true,
-	      kavenegarPhoto: false
-	    });
 	  },
 	  render: function render() {
+	    var _state = this.state,
+	        isloading = _state.isloading,
+	        showComponent = _state.showComponent;
+
+	    var that = this;
+	    function fetchingData() {
+	      if (isloading) {
+	        return _react2.default.createElement('img', { className: 'isloading', src: 'http://loading.io/assets/img/hourglass.svg' });
+	      } else if (showComponent) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.return }),
+	          _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: that.state.entries })
+	        );
+	      }
+	    }
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container' },
@@ -45157,12 +45197,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-md-6 col-sm-6 col-xs-6 pull-left json-part-2 ' },
-	          this.state.showComponent ? _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.return }),
-	            _react2.default.createElement(JSONPretty, { id: 'json-pretty', json: this.state.entries })
-	          ) : null,
+	          fetchingData(),
 	          this.state.kavenegarPhoto ? _react2.default.createElement('img', { src: 'http://panel.kavenegar.com/public/images/Kavenegar-Newface.png' }) : null
 	        )
 	      ),

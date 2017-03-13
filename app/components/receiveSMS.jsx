@@ -16,7 +16,8 @@ var receiveSMS = React.createClass({
         return : {},
         entries : [],
         showComponent:false,
-        kavenegarPhoto:true
+        kavenegarPhoto:true,
+        isloading:false
       }
     },
 
@@ -30,6 +31,7 @@ var receiveSMS = React.createClass({
    var self = this;
       self.refs.linenumber.value = '';
       self.refs.key.value = '';
+  this.setState({isloading:true, kavenegarPhoto:false})
      fetch(url).then(function (response){
           self.setState({
             return : {
@@ -60,22 +62,36 @@ status : json.return.status,
 message: json.return.message
 }
 })
-
-
+self.setState({
+  isloading:false,
+  showComponent:true
+})
 });
 
         }).catch(function(error) {
           self.setState({Message:error})
           console.log(error)
           })
-          this.setState({
-            showComponent : true,
-            kavenegarPhoto: false
-          })
 
 
  },
 render : function(){
+  var {isloading, showComponent} = this.state;
+  var that = this;
+  function fetchingData(){
+    if(isloading){
+      return <img  className="isloading"src="http://loading.io/assets/img/hourglass.svg"></img>
+
+    }else if (showComponent) {
+      return (
+        <div>
+            <JSONPretty id="json-pretty" json={that.state.return}></JSONPretty>
+            <JSONPretty id="json-pretty" json={that.state.entries}></JSONPretty>
+       </div>
+      )
+
+    }
+  }
         return(
           <div className="container">
                   <div className="row" style={{marginTop: 60}}>
@@ -127,13 +143,7 @@ render : function(){
                                 </form>
                                 </div>
                                 <div className="col-md-6 col-sm-6 col-xs-6 pull-left json-part-2 ">
-
-                                      {this.state.showComponent ?
-                                        <div>
-                                            <JSONPretty id="json-pretty" json={this.state.return}></JSONPretty>
-                                            <JSONPretty id="json-pretty" json={this.state.entries}></JSONPretty>
-                                        </div>
-                                     : null}
+                                  {fetchingData()}
                                      {this.state.kavenegarPhoto ? <img src='http://panel.kavenegar.com/public/images/Kavenegar-Newface.png'></img> : null}
                                 </div>
                       </div>

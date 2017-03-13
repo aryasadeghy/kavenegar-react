@@ -13,7 +13,9 @@ var LookUp = React.createClass({
       return : {},
       entries : {},
       showComponent:false,
-      kavenegarPhoto : true
+      kavenegarPhoto : true,
+      isloading: false
+
     }
   },
 handleSubmit : function(e){
@@ -24,7 +26,8 @@ handleSubmit : function(e){
     var template = this.refs.template.value;
     var key = this.refs.key.value;
 
-
+    this.setState({isloading: true,kavenegarPhoto: false,
+})
              var url = `https://api.kavenegar.com/v1/${key}/verify/lookup.json?receptor=${phone}&token=${token}&template=${template}`
              var self = this;
                self.refs.receptor.value = '';
@@ -36,14 +39,7 @@ handleSubmit : function(e){
                   self.setState({
 
                   });
-               //
-              //       Alert.info(JSON.stringify(self.state.return), {
-              //        position: 'top-left',
-              //        effect: 'jelly',
-              //        timeout: 3000,
-              //        offset: 100
-              //    }
-              //  );
+
                response.json().then(function(json) {
             if(json.entries != null){
               self.setState({
@@ -61,6 +57,10 @@ handleSubmit : function(e){
               message : json.return.message,
             }
           })
+          self.setState({
+            showComponent :true,
+            isloading:false
+          })
         })
                   }).catch(function(error) {
                     con
@@ -73,13 +73,27 @@ handleSubmit : function(e){
                     console.log('request failed', error)
                   })
 
-            this.setState({
-              showComponent:true,
-              kavenegarPhoto: false
-            })
+
            },
 
 render : function(){
+  var {isloading,showComponent} = this.state;
+  var that = this;
+  //this function addding loading content before the json showup
+  function fetchingData(){
+    if(isloading){
+      //if  isloading state is true tihs render
+      return <img className="isloading" src="http://loading.io/assets/img/hourglass.svg"></img>
+    }else if(showComponent){
+      //id isloading state is false this render
+      return(
+        <div>
+            <JSONPretty id="json-pretty" json={that.state.return}></JSONPretty>
+            <JSONPretty id="json-pretty" json={that.state.entries}></JSONPretty>
+        </div>
+      )
+    }
+  }
                   return(
           <div className="container">
                   <div className="row" style={{marginTop: 60}}>
@@ -120,7 +134,7 @@ render : function(){
                               className="form-control input-lg"
                               placeholder="Your PhoneNumber" />
                           </div>
-                
+
                           <hr className="colorgraph" />
                           <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">
@@ -135,25 +149,14 @@ render : function(){
                       </form>
                     </div>
                     <div className="col-xs-6 col-sm-6 col-md-6 pull-left json-part">
+                        {fetchingData()}
 
-                      {this.state.showComponent ?
-                        <div>
-                            <JSONPretty id="json-pretty" json={this.state.return}></JSONPretty>
-                            <JSONPretty id="json-pretty" json={this.state.entries}></JSONPretty>
-                        </div>
-
-                     : null}
                      {this.state.kavenegarPhoto ? <img src='http://panel.kavenegar.com/public/images/Kavenegar-Newface.png'></img> : null}
-
                     </div>
                   </div>
                   <Alert stack={{limit:1}} html={true} />
                 </div>
-
-
               )
             }
-
-
 })
 module.exports = LookUp ;

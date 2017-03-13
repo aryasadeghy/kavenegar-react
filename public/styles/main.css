@@ -59,11 +59,13 @@ pre {
 }
 .json-part {
   padding-top: 127px;
-padding-right: 0px;
-margin-left: -133px;
+
 }
 .json-part-2 {
   padding-top: 69px;
-padding-right: 0px;
-margin-left: -133px;
+
+}
+.isloading{
+  padding-left: 210px;
+ padding-top: 51px;
 }
