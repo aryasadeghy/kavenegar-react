@@ -2,8 +2,8 @@
 react app sending message via kavenegar API
 for more information please vist these links :
 
-1-  {kavenegar's github Page}('github.com/kavenegar')
-2- {kavenegar Website}('kavenegar.com')
+1- <a href="github.com/kavenegar"> kavenegar github page </a>
+2- <a href='kavenegar.com'>kavenegar Website </a>
 
 ##Usage 
 kavenegar users easily can send  and receive SMS through kavenegar API with this tiny react app 
