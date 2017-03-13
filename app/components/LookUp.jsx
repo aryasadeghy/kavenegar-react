@@ -20,14 +20,14 @@ var LookUp = React.createClass({
   },
 handleSubmit : function(e){
   e.preventDefault();
+
     var receptor = this.refs.receptor.value;
     var phone = receptor.split(",")
     var token = this.refs.token.value;
     var template = this.refs.template.value;
     var key = this.refs.key.value;
 
-    this.setState({isloading: true,kavenegarPhoto: false,
-})
+    this.setState({isloading: true,kavenegarPhoto: false})
              var url = `https://api.kavenegar.com/v1/${key}/verify/lookup.json?receptor=${phone}&token=${token}&template=${template}`
              var self = this;
                self.refs.receptor.value = '';
