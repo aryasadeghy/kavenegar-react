@@ -6,7 +6,7 @@ for more information please vist these links :
 1- <a href="github.com/kavenegar"> kavenegar github page </a>
 2- <a href='kavenegar.com'>kavenegar Website </a>
 # Demo 
-<a href="aryasadeghy.github.io/kavaengarreact/"> Demo </a>
+<a href="kavaengarreact/"> Demo </a>
 ## Usage 
 kavenegar users easily can send  and receive SMS through kavenegar API with this tiny react app 
 
